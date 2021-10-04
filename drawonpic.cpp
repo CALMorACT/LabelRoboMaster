@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QTransform>
 #include <QDebug>
+#include <QSize>
 #include <iostream>
 #include <fstream>
 
@@ -152,16 +153,20 @@ void DrawOnPic::mouseDoubleClickEvent(QMouseEvent *event){
     }
 }
 
-void DrawOnPic::wheelEvent(QWheelEvent* event){
-    const double delta = (event->delta() > 0) ? (1.1) : (1 / 1.1);
-    
-    double mx = event->pos().x();
-    double my = event->pos().y();
-
-    QTransform delta_transform;
-    delta_transform.translate(mx*(1-delta), my*(1-delta)).scale(delta, delta);
-
-    img2label = img2label * delta_transform;
+void DrawOnPic::wheelEvent(QWheelEvent *event)
+{
+    if (img == nullptr)
+    {
+        return;
+    }
+    event->accept();
+    const double delta = (event->angleDelta().y() > 0) ? (1.1) : (1 / 1.1);
+    QImage img_tmp = img->scaled(QSize(int(img->width() * delta), int(img->height() * delta)), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    if (!img_tmp.isNull())
+    {
+        *img = img_tmp;
+    }
+    update();
 }
 
 void DrawOnPic::keyPressEvent(QKeyEvent* event) {
