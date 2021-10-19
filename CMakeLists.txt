@@ -6,9 +6,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(QT_VERSION 5)
+set(QT_VERSION 6)
 set(REQUIRED_LIBS Core Gui Widgets Svg)
-set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Svg)
+set(REQUIRED_LIBS_QUALIFIED Qt::Core Qt::Gui Qt::Widgets Qt::Svg)
 
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -17,7 +17,7 @@ include_directories(.)
 
 aux_source_directory(. src)
 
-qt5_add_big_resources(resource resource.qrc)
+qt_add_big_resources(resource resource.qrc)
 add_executable(${PROJECT_NAME} ${src} ${resource})
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
