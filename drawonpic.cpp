@@ -159,9 +159,9 @@ void DrawOnPic::wheelEvent(QWheelEvent *event)
     {
         return;
     }
-    const double delta = (event->delta() > 0) ? (1.1) : (1 / 1.1);
-    double mx = event->pos().x();
-    double my = event->pos().y();
+    const double delta = (event->angleDelta().y() > 0) ? (1.1) : (1 / 1.1);
+    double mx = event->position().x();
+    double my = event->position().y();
 
     QTransform delta_transform;
     delta_transform.translate(mx*(1-delta), my*(1-delta)).scale(delta, delta);
@@ -378,8 +378,8 @@ void DrawOnPic::reset() {
 
 void DrawOnPic::loadLabel() {
     current_label.clear();
-    QFileInfo image_file = current_file;
-    QFileInfo label_file = image_file.absoluteFilePath().replace(image_file.completeSuffix(), "txt");
+    QFileInfo image_file = QFileInfo(current_file);
+    QFileInfo label_file = QFileInfo(image_file.absoluteFilePath().replace(image_file.completeSuffix(), "txt"));
     if (label_file.exists()) {
         QFile fp(label_file.absoluteFilePath());
         if (fp.open(QIODevice::ReadOnly)) {
@@ -403,8 +403,8 @@ void DrawOnPic::loadLabel() {
 }
 
 void DrawOnPic::saveLabel() {
-    QFileInfo image_file = current_file;
-    QFileInfo label_file = image_file.absoluteFilePath().replace(image_file.completeSuffix(), "txt");
+    QFileInfo image_file = QFileInfo(current_file);
+    QFileInfo label_file = QFileInfo(image_file.absoluteFilePath().replace(image_file.completeSuffix(), "txt"));
     QFile fp(label_file.absoluteFilePath());
     if (current_label.empty()) {
         fp.remove();
@@ -417,7 +417,7 @@ void DrawOnPic::saveLabel() {
                    << box.pts[0].x() << " " << box.pts[0].y() << " "
                    << box.pts[1].x() << " " << box.pts[1].y() << " "
                    << box.pts[2].x() << " " << box.pts[2].y() << " "
-                   << box.pts[3].x() << " " << box.pts[3].y() << endl;
+                   << box.pts[3].x() << " " << box.pts[3].y();
         }
     }
 }

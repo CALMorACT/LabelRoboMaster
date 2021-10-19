@@ -49,7 +49,7 @@ public slots:
 
     void setFocusBox(int index);
 
-    void removeBox(box_t *box);
+    void removeBox(QVector<box_t>::iterator box_iter);
 
     void smart();
 

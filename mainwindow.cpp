@@ -113,11 +113,11 @@ void MainWindow::on_prevPushButton_clicked() {
 void MainWindow::on_fileListHorizontalSlider_valueChanged(int value) {
 //    printf("on_fileListHorizontalSlider_valueChanged\n");
     QString text;
-    ui->fileListLabel->setText(text.sprintf("[%d/%d]", value, ui->fileListHorizontalSlider->maximum()));
+    ui->fileListLabel->setText(text.asprintf("[%d/%d]", value, ui->fileListHorizontalSlider->maximum()));
     ui->fileListWidget->setCurrentItem(ui->fileListWidget->item(value - 1));
 }
 
 void MainWindow::on_fileListHorizontalSlider_rangeChanged(int min, int max) {
     QString text;
-    ui->fileListLabel->setText(text.sprintf("[%d/%d]", ui->fileListHorizontalSlider->value(), max));
+    ui->fileListLabel->setText(text.asprintf("[%d/%d]", ui->fileListHorizontalSlider->value(), max));
 }
