@@ -160,8 +160,8 @@ void DrawOnPic::wheelEvent(QWheelEvent *event)
         return;
     }
     const double delta = (event->angleDelta().y() > 0) ? (1.1) : (1 / 1.1);
-    double mx = event->position().x();
-    double my = event->position().y();
+    double mx = event->pos().x();
+    double my = event->pos().y();
 
     QTransform delta_transform;
     delta_transform.translate(mx*(1-delta), my*(1-delta)).scale(delta, delta);
